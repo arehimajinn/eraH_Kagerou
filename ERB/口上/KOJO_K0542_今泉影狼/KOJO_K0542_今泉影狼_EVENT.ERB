@@ -1,0 +1,946 @@
+;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+;
+;	Module		:KOJO_K0542_今泉影狼_EVENT.ERB
+;	Facility	:キャラクター口上(No.542:今泉影狼)
+;
+;	Licence		:ライセンス詳細を参照。
+;
+;	口上テンプレート version :0.017
+;
+;	Modification Data:
+;
+;	Edit	Date			Author					Reason
+;	001		2016/07/11		暇人					新規作成
+;
+;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+
+;-------------------------------------------------------------------------------
+; 【フラグ使用状況】
+;  ※CFLAG:500～999まで自由に使用可能
+;
+;	ファイル内未使用
+;
+;-------------------------------------------------------------------------------
+
+;===============================================================================
+;  ◇記載関数一覧(記載順)
+;
+;		Module Name						Explanation
+;
+; *- 標準関数
+;
+;	・ KOJO_DAILY_K542					キャラ口上:日常イベント
+;	・ KOJO_WORK_K542					キャラ口上:労役イベント
+;	・ KOJO_RAPE_K542					キャラ口上:レイプイベント
+;
+; *- 汎用口上追加イベント関数
+;
+;	・ KOJO_WORKEVENT_WAITRESS_CHECK_K542			ウェイトレス
+;	・ KOJO_WORKEVENT_CLEAN_CHECK_K542				客室整備
+;	・ KOJO_WORKEVENT_SONG_CHECK_K542				歌唱練習
+;	・ KOJO_WORKEVENT_CONCERT_CHECK_K542			コンサート
+;	・ KOJO_WORKEVENT_TRAINING_CHECK_K542			戦闘訓練
+;	・ KOJO_WORKEVENT_GUARD_CHECK_K542				館内警備
+;	・ KOJO_WORKEVENT_WHORE_CHECK_K542				娼館客室
+;
+;===============================================================================
+
+;-------------------------------------------------------------------------------
+;   標準関数
+;-------------------------------------------------------------------------------
+
+;=================================================
+;   sub KOJO_DAILY_K542
+;=================================================
+;   キャラ口上:日常イベント
+;-------------------------------------------------
+@KOJO_DAILY_K542
+
+;-- CHK:対象PALAM
+SELECTCASE FLAG:日常コマンド
+	;-------------------------------------------------
+	;xxx,制服支給（女=メイド服(ミニスカ) 男=ボーイ服）
+	;-------------------------------------------------
+	CASE [[日常EVE:制服支給]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,伴侶取得（エンゲージリング使用）
+	;-------------------------------------------------
+	CASE [[日常EVE:伴侶取得]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,烙印取得
+	;-------------------------------------------------
+	CASE [[日常EVE:烙印取得]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,淫魔取得
+	;-------------------------------------------------
+	CASE [[日常EVE:淫魔取得]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,妊娠発覚時
+	;-------------------------------------------------
+	CASE [[日常EVE:妊娠発覚時]]
+		;主人との子供
+		IF CFLAG:妊娠フラグ == 1
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+
+		;主人以外との子供
+		ELSE
+			;NTR相手との子供で且つNTR相手に陥落
+			IF (CFLAG:妊娠フラグ == 2) && TALENT:ＮＴＲ度
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,出産時
+	;-------------------------------------------------
+	CASE [[日常EVE:出産時]]
+		;主人との子供
+		IF CFLAG:妊娠フラグ == 1
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+
+		;主人以外との子供
+		ELSE
+			;NTR相手との子供で且つNTR相手に陥落
+			IF (CFLAG:妊娠フラグ == 2) && TALENT:ＮＴＲ度
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,黄色の飴
+	;-------------------------------------------------
+	CASE [[日常EVE:黄色の飴]]
+		;主人との子供
+		IF CFLAG:妊娠フラグ == 1
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+
+		;主人以外との子供
+		ELSE
+			;NTR相手との子供で且つNTR相手に陥落
+			IF (CFLAG:妊娠フラグ == 2) && TALENT:ＮＴＲ度
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,解放
+	;-------------------------------------------------
+	CASE [[日常EVE:解放]]
+		;陥落開始
+		IF MARK:陥落刻印
+			;PRINTFORMW 
+		;隷属開始
+		ELSEIF MARK:隷属刻印
+			;PRINTFORMW 
+		;反発刻印Lv3
+		ELSEIF MARK:反発刻印 == 3
+			;PRINTFORMW 
+		;それ以外
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+;-------------------------------------------------------------------------------
+;◆夜伽/朝イベント系（陥落のみ）
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,夜伽会話（前戯＋会話）
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽会話]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,夜伽Ｖ(主人C 奴隷V)
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽Ｖ]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,夜伽Ａ(主人C 奴隷A)
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽Ａ]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,夜伽Ｃ(主人C 奴隷C)
+	;-------------------------------------------------
+	;    P有り(オトコ or ふたなり)かどうかで処理が分岐
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽Ｃ]]
+		;主人がP有り
+		IF VAR_PENIS(MASTER)
+			;奴隷がP有り(兜合わせ)
+			IF VAR_PENIS(TARGET)
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;奴隷がP無し(素股)
+			ELSE
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;主人がオンナ
+		ELSE
+			;奴隷がP有り(逆素股)
+			IF VAR_PENIS(TARGET)
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;奴隷がP無し(貝合わせ)
+			ELSE
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,夜伽逆Ｖ(主人V 奴隷C)
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽逆Ｖ]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,夜伽逆Ａ(主人A 奴隷C)
+	;-------------------------------------------------
+	CASE [[日常EVE:夜伽逆Ａ]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,朝添い寝
+	;-------------------------------------------------
+	CASE [[日常EVE:朝添い寝]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,朝キス
+	;-------------------------------------------------
+	CASE [[日常EVE:朝キス]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_WORK_K542
+;=================================================
+;   キャラ口上:労役イベント
+;-------------------------------------------------
+@KOJO_WORK_K542
+
+;-- CHK:
+SELECTCASE CFLAG:労役結果タイプ
+	;-------------------------------------------------
+	;xxx,ウェイトレス
+	;-------------------------------------------------
+	CASE [[労役結果:ウェイトレス]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_WAITRESS_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,客室整備
+	;-------------------------------------------------
+	CASE [[労役結果:客室整備]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_CLEAN_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,歌唱練習
+	;-------------------------------------------------
+	CASE [[労役結果:歌唱練習]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_SONG_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,コンサート
+	;-------------------------------------------------
+	CASE [[労役結果:コンサート]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_CONCERT_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,戦闘訓練
+	;-------------------------------------------------
+	CASE [[労役結果:戦闘訓練]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_TRAINING_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,館内警備
+	;-------------------------------------------------
+	CASE [[労役結果:館内警備]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+		CALL KOJO_WORKEVENT_GUARD_CHECK_K542
+
+	;-------------------------------------------------
+	;xxx,娼館客室（処女の場合は処女喪失）
+	;-------------------------------------------------
+	CASE [[労役結果:娼館客室]]
+		;処女
+		IF !TALENT:非処女
+			;淫乱
+			IF MARK:淫乱刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;それ以外
+		ELSE
+			;淫乱
+			IF MARK:淫乱刻印
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				IF RAND:2 == 0
+					;PRINTFORMW 
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		ENDIF
+		CALL KOJO_WORKEVENT_WHORE_CHECK_K542
+
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_RAPE_K542
+;=================================================
+;   キャラ口上:レイプイベント
+;-------------------------------------------------
+@KOJO_RAPE_K542
+
+;-- CHK:
+SELECTCASE FLAG:レイプ結果タイプ
+	;-------------------------------------------------
+	;xxx,回避
+	;-------------------------------------------------
+	CASE [[レイプ結果:回避]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,客室強姦
+	;-------------------------------------------------
+	CASE [[レイプ結果:客室強姦]]
+		IF RAND:2 == 0
+			;PRINTFORMW 
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,客室事後
+	;-------------------------------------------------
+	CASE [[レイプ結果:客室事後]]
+		;処女喪失
+		IF TCVAR:履歴_EXP_処女喪失
+			;PRINTFORMW 
+		;それ以外
+		ELSE
+			IF RAND:2 == 0
+				;PRINTFORMW 
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;-------------------------------------------------------------------------------
+;   汎用口上追加イベント関数
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------
+;   労役『ウェイトレス』
+;-------------------------------------------------
+@KOJO_WORKEVENT_WAITRESS_CHECK_K542
+;派遣メイド証を持っている時は労役でイベントが発生しない。
+IF CSTR:衣装名_アクセサリー != "派遣メイド証"
+	;後輩指導イベント
+	SIF CHARANUM >= 3 && RAND:10 < 5
+		CALL KOJO_WORKEVENT_TEACH_K542
+	;看板娘&営業イベント
+	SIF CHARANUM >= 5 && !MASTER && RAND:10 < 5
+		CALL KOJO_WORKEVENT_SEALES_K542
+	;売春経験あり
+	SIF EXP:売春経験 > 200 && MARK:淫乱刻印 >= 2 && CHARANUM >= 3 && RAND:100 < ((EXP:売春経験/50)+10)
+		CALL KOJO_DEFAULT_INRN1
+	;処女イベント
+	SIF CHARANUM >= 5 && EXP:性交経験 == 0 && TCVAR:履歴_EXP_処女喪失 == 0 && MARK:陥落刻印 >= 2 && RAND:100 < ((ABL:従順 + ABL:親密) + 4)
+		CALL KOJO_DEFAULT_VIRGIN1
+	;愛妻イベント
+	SIF CHARANUM >= 5 && EXP:性交経験 != 0 && MARK:陥落刻印 >= 3 && RAND:100 < ((ABL:従順 + ABL:親密) + 4)
+		CALL KOJO_DEFAULT_WIFE1
+	;惚気&イチャイチャイベント
+	SIF CHARANUM >= 5 && MARK:陥落刻印 >= 2 && TALENT:ＮＴＲ度 == 0 && !MASTER && RAND:100 < ((ABL:従順 + ABL:親密) + 2)
+		CALL KOJO_DEFAULT_NRK1
+	IF  CSTR:衣装名_アクセサリー == "親愛の指輪(雄)" || CFLAG:カップル番号_自分 != 0
+		CALL KOJO_DEFAULT_H_COUPLE
+	ELSEIF  CSTR:衣装名_アクセサリー == "逢瀬の結婚指輪" 
+		CALL KOJO_DEFAULT_OUS
+	ELSEIF  (CSTR:衣装名_アクセサリー == "古びた魔導書" || CFLAG:魔人度 >= 50) && CFLAG:淫魔度 >= 0 
+		CALL KOJO_DEFAULT_MJN1
+	ELSEIF  (CSTR:衣装名_アクセサリー == "夜魔の刺青" || CFLAG:淫魔度 >= 50) && CFLAG:魔人度 >= 0
+		CALL KOJO_DEFAULT_INM
+	ENDIF
+	;労役評価は一番最後
+	CALL KOJO_DEFAULT_VALUE1
+ENDIF
+;-------------------------------------------------
+;   キャラ口上:淫乱キャラのつまみ食いイベント
+;-------------------------------------------------
+@KOJO_DEFAULT_INRN1
+	IF !RAND:3
+	;とある一室にて
+		SETCOLOR COLOR("ピンク")
+		PRINTFORML %CALLNAME%はとある使われていない個室にこっそりと入っていった…
+		RESETCOLOR
+		CALL NEWLINE(4)
+		SETCOLOR COLOR("黄色")
+		IF !RAND:5
+			PRINTFORML 『……またか』
+		ELSEIF !RAND:4
+			PRINTFORML （………またつまみ食いしてる…）
+		ELSEIF !RAND:3
+			PRINTFORML 『…………まったく』
+		ELSEIF !RAND:2
+			PRINTFORML （あれは………もしかして…）
+		ELSE
+			PRINTFORML 『……ふぅ』
+		ENDIF
+		RESETCOLOR
+		CALL NEWLINE(4)
+		PRINTFORML 時間が大分過ぎた頃、ほんのり顔を赤らめ汗を掻いた%CALLNAME%が個室から出てきた。
+		PRINTFORMW その直後、彼女の不貞を把握していた仲間からつまみ食いは控えるよう叱られた…
+	ELSEIF !RAND:2
+	;配下は見た！
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+			SETCOLOR COLOR("黄色")
+			IF !RAND:5
+			PRINTFORML 『……ん…？』
+			ELSEIF !RAND:4
+			PRINTFORML （………何あれ？）
+			ELSEIF !RAND:3
+			PRINTFORML 『…………何かしてる？』
+			ELSEIF !RAND:2
+			PRINTFORML （……よく見えないけど…誰かいる？）
+			ELSE
+			PRINTFORML 『……人？』
+			ENDIF
+		PRINTFORML 他の配下が周りを点検していた所、何か物音が聞こえたのでそちらの方に意識を向ける、すると
+		SETCOLOR COLOR("ピンク")
+;――――――――――――――――――――汎用台詞開始――――――――――――――――――――
+	;セリフ検索
+	TRYCCALLFORM KOJO_DEFAULT_TALKCATCH_K{CFLAG:使用口上}
+	CATCH
+	ENDCATCH
+	IF RESULT == 1
+	;専用セリフ
+	TRYCALLFORM KOJO_DEFAULT_TALK_INRN1_K{CFLAG:使用口上}
+	ELSE
+		IF !RAND:5
+		ELSEIF !RAND:4
+		PRINTFORML 「…っ%UNICODE(0x2661)%…！…%UNICODE(0x2661)%」
+		ELSEIF !RAND:3
+		PRINTFORML 「…っ…%UNICODE(0x2661)%……♪」
+		ELSEIF !RAND:2
+		PRINTFORML 「っ！……ん……ぁっ%UNICODE(0x2661)%」
+		ELSE
+		PRINTFORML 「……！……ッ……%UNICODE(0x2661)%」
+		ENDIF
+	ENDIF
+	PRINTL
+;――――――――――――――――――――汎用台詞終了――――――――――――――――――――
+		IF RAND:2 == 0
+		;乱交
+			IF !RAND:7
+				PRINTFORML 客室で男が二人、一人の女と後背位で性行為をしていた。
+				PRINTFORML 一人は膣を。もう一人は口を犯し、まるで道具のように女を弄んでいる
+				PRINTFORML しかし、犯されている女性の方はむしろ喜んでよがっていた…
+			ELSEIF !RAND:6
+				PRINTFORML 客の子供二人相手に、女性が裸体で性教育の相手をしていた。
+				PRINTFORML まだ性に疎い年齢である子供たちを女性は魅惑的な身体で誘惑し、眠っている雄の本能を目覚めさせる。
+				PRINTFORML 勃起しても小さいペニスを膣に咥え込み、もう一人の方をしゃぶりながら気持ちよくなる方法を教えていた…
+			ELSEIF !RAND:5
+				PRINTFORML ちょっと生意気そうな男子と大人しそうな男子を誘い、一人の女性が人気のない部屋で情事を行おうとしていた。
+				PRINTFORML 生意気な方は初めての性行為にタジタジで、しかし次第に女体の心地よさに夢中になり、自ら腰を振り始める。
+				PRINTFORML 大人しい方は可愛らしいペニスを女性にしゃぶられ、女の子のような声で切なく喘いでいた…
+			ELSEIF !RAND:4
+				PRINTFORML 常連の客の子供である青年二人と女性が親のいない客室で３Pをしていた。
+				PRINTFORML 男二人は前と後ろの穴を勃起したペニスで犯し、まだ不慣れな腰つきで同時のピストンを続ける。
+				PRINTFORML 三人の掛け合いはどこか親しげで、前々からこの様な行為を重ねているようだ…
+			ELSEIF !RAND:3
+				PRINTFORML 若い三人の男がベッドの上で裸の女を夢中になって抱いていた。
+				PRINTFORML 交代交代で入れる場所を変えながら一人の女の穴を堪能している。
+				PRINTFORML 一方的に犯されているように見えるが、実は主導権は女が握っているらしかった…
+			ELSEIF !RAND:2
+				PRINTFORML 酔いつぶれて寝ている男のペニスを、ベッドに這いつくばった女が美味しそうにしゃぶっている。
+				PRINTFORML 夢精する男のペニスを綺麗にしたのち、再び頬張って勃起させていく。
+				PRINTFORML 女の突き出した尻にはもう一人の酔っぱらいが取り付き、後背位でズコズコと犯していた…
+			ELSE
+				PRINTFORML 窓のカーテンから上半身を出した女が男の子のペニスを四つん這いでしゃぶっている。
+				PRINTFORML 初めての快感に夢中なのか、男の子は身体を震わせて快楽に浸っていた。
+				PRINTFORML 男の子は親の事を心配しているようだが、肝心の親はカーテンの後ろで腰を振っていた…
+			ENDIF
+		ELSE
+		;一対一
+			IF !RAND:10
+			PRINTFORML 窓のカーテンの向こう側に人影が見えた、膨らみからして二人ほどだろうか。
+			PRINTFORML それにしてもカーテンがよく揺れている。下から見える床は謎の液体でベタベタに汚れていた…
+			ELSEIF !RAND:9
+			PRINTFORML 使われていないはずの個室を少しだけこっそり開けると、ベッドの上で裸体の男女が情事に耽っていた。
+			PRINTFORML 男は今日宿泊されるお客様だが、お連れの女性などいただろうか…？
+			ELSEIF !RAND:8
+			PRINTFORML 図書室の一角、奥の死角で若い男女が立ちバックで性行為に耽っていた。
+			PRINTFORML 遠目なので顔は判別できないが、女性の声は聞き覚えがあるような気がした…
+			ELSEIF !RAND:7
+			PRINTFORML 人気のない休憩所のソファーに、対面座位で性行為をする男女がいた。
+			PRINTFORML 女性の顔は伺いしれないが、腰の動きが妖艶でとても手馴れているように見える…
+			ELSEIF !RAND:6
+			PRINTFORML 使われてない客室で男が女を組み伏せ、後ろから剛直した肉棒で犯していた。
+			PRINTFORML 強姦かと思ったが、女のセリフからして和姦のようだ…
+			ELSEIF !RAND:5
+			PRINTFORML 予定のないはずの高級客室で男女が、発情した獣の交尾の如く性器を打ち合わせていた。
+			PRINTFORML 傍にはコンドームが置いてあるが開封した様子はない。恐らく生でしているのだろう…
+			ELSEIF !RAND:4
+			PRINTFORML 客室の壁際で裸の女が、同じく裸の男の肉棒を咥え音を立ててしゃぶっている。
+			PRINTFORML 既に一戦交えた後か。女の股からは精液がドロドロと零れ落ちていた…
+			ELSEIF !RAND:3
+			PRINTFORML 倉庫の隅で裸の男女が立ったまま激しくまぐわっている。
+			PRINTFORML 女は男と壁の間に体を挟まれ、逃れようもなく膣内に射精された。
+			PRINTFORML 肉棒が引き抜かれ、大量の精液がボタボタと床に垂れ落ちた…
+			ELSEIF !RAND:2
+			PRINTFORML 客室のベッドの上であお向けの男に跨る女が気持ちよさそうに腰を振っていた。
+			PRINTFORML 終始女性が主導権を握っているのだろう、淫らな腰つきで性を搾り取っているようだ…
+			ELSE
+			PRINTFORML 客室の窓に女を押し付け、男が立ちバックで腰を振って女を喘がせている。
+			PRINTFORML もう数度射精しているのか、打ち付ける度に鈍い水音が響いて液体を結合部から飛び散らせていた…
+			ENDIF
+		ENDIF
+;――――――――――――――――――――汎用台詞開始――――――――――――――――――――
+	;セリフ検索
+	TRYCCALLFORM KOJO_DEFAULT_TALKCATCH_K{CFLAG:使用口上}
+	CATCH
+	ENDCATCH
+	IF RESULT == 1
+	;専用セリフ
+	TRYCALLFORM KOJO_DEFAULT_TALK_INRN2_K{CFLAG:使用口上}
+	ELSE
+		IF !RAND:5
+		ELSEIF !RAND:4
+		PRINTFORML 「…――――！！…%UNICODE(0x2661)%」
+		ELSEIF !RAND:3
+		PRINTFORML 「ぁぁあ…っ！！…%UNICODE(0x2661)%…」
+		ELSEIF !RAND:2
+		PRINTFORML 「………%UNICODE(0x2661)%」
+		ELSE
+		PRINTFORML 「…！…！……あっ！……%UNICODE(0x2661)%」
+		ENDIF
+	ENDIF
+	PRINTL
+;――――――――――――――――――――汎用台詞終了――――――――――――――――――――
+		RESETCOLOR
+			SETCOLOR COLOR("黄色")
+			IF !RAND:5
+			PRINTFORML 『……戻ろう』
+			ELSEIF !RAND:4
+			PRINTFORML （………今のうちに）
+			ELSEIF !RAND:3
+			PRINTFORML 『…………はぁ』
+			ELSEIF !RAND:2
+			PRINTFORML （………ふぅ）
+			ELSE
+			PRINTFORML 『……見つかる前に』
+			ENDIF
+		RESETCOLOR
+		PRINTFORMW 一部始終を見届けた配下は、こちらに気づく前に静かに退散した…
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		PRINTFORML
+		SETCOLOR COLOR("ピンク")
+		PRINTFORMW それにしても%CALLNAME%は何処にいるのだろうか…、確か休憩のハズだが…
+		RESETCOLOR
+	ELSE
+	;個室連れ込み
+		SETCOLOR COLOR("ピンク")
+		PRINTFORML 勤務を終えた%CALLNAME%は活きの良い宿泊客をサービスと称して誘惑し、二人で廊下の奥へ消えていった…
+		RESETCOLOR
+		
+;――――――――――――――――――――汎用台詞開始――――――――――――――――――――
+	;セリフ検索
+	TRYCCALLFORM KOJO_DEFAULT_TALKCATCH_K{CFLAG:使用口上}
+	CATCH
+	ENDCATCH
+	IF RESULT == 1
+	;専用セリフ
+	TRYCALLFORM KOJO_DEFAULT_TALK_INRN3_K{CFLAG:使用口上}
+	ELSE
+		IF !RAND:10
+		PRINTFORML 「膣内っ……こすれっ…%UNICODE(0x2661)%……あぁっ…あっあっあっはぁんっ%UNICODE(0x2661)%」
+		ELSEIF !RAND:9
+		PRINTFORML 「…後ろ…からっ…%UNICODE(0x2661)%……ズンズン……突かれ…っ……%UNICODE(0x2661)%」
+		ELSEIF !RAND:8
+		PRINTFORML 「あはっ%UNICODE(0x2661)%……はっ…んっ……くあっ…%UNICODE(0x2661)%」
+		ELSEIF !RAND:7
+		PRINTFORML 「動物の…っ……交尾っ…ふぁっ……みたい…っ……%UNICODE(0x2661)%」
+		ELSEIF !RAND:6
+		PRINTFORML 「ぁっあっぁっああっ……んぁあっ！…%UNICODE(0x2661)%」
+		ELSEIF !RAND:5
+		PRINTFORML 「…ぅあっ…ぁっ…膣内で…コツンっ…てっ……%UNICODE(0x2661)%」
+		ELSEIF !RAND:4
+		PRINTFORML 「当たっ…て…っ%UNICODE(0x2661)%…ああぁっ！…あんっ…はぁあぁっ！%UNICODE(0x2661)%」
+		ELSEIF !RAND:3
+		PRINTFORML 「んぁあっ……はっ……ぃ…いっ…ぱい……出し…っはぁぁんっ…♪」
+		ELSEIF !RAND:2
+		PRINTFORML 「ふぁっ！……んっ…んっあっ……ぁ…あはっ%UNICODE(0x2661)%」
+		ELSE
+		PRINTFORML 「…ッ気持ち……ぁっ…よすぎ…%UNICODE(0x2661)%……イっちゃっ…ひゃあぁあっ%UNICODE(0x2661)%」
+		ENDIF
+	ENDIF
+	PRINTL
+;――――――――――――――――――――汎用台詞終了――――――――――――――――――――
+		IF !RAND:6
+		PRINTFORML %CALLNAME%はベッドに身を預け、正常位で発情した男に犯される。
+		PRINTFORML コンドームなしの生SEXに興奮し切っているのか、息を荒くして何度もペニスを膣に打ち付ける。
+			IF TALENT:巨乳  || TALENT:爆乳
+			PRINTFORML そして、重みで横に広がり円を描くように揺れる豊満な乳房に、片方をむしゃぶりついて乳首を吸い、もう片方を鷲掴みにして揉みしだく。
+			ELSE
+			PRINTFORML そして、快感に喘ぐ%CALLNAME%と唇を重ね、音が響くほどの口づけを交わしていく。
+		 	ENDIF
+		PRINTFORMW 段々と早くなっていく腰の動きに射精が近いと悟った%CALLNAME%は、足を絡めて同時の絶頂を求めた…
+		ELSEIF !RAND:5
+		PRINTFORML 本番を終えた後ベッドで抱き合っていた二人だったが、客の男が奉仕して欲しいとねだってきた。
+		PRINTFORML %CALLNAME%は男の股の間に座り、未だ熱く勃つ肉棒に顔を近づけた。
+			IF TALENT:巨乳  || TALENT:爆乳
+			PRINTFORML 肉棒を豊満な胸に挟み込み圧力を掛けながら上下にストロークさせていく。
+			PRINTFORML 時折左右交互に動かしたり、谷間から顔を出した亀頭を舌で舐め上げる。
+			ELSE
+			PRINTFORML 口に頬張ると、上目遣いで首を上下にストロークさせていく。
+			PRINTFORML 口の中ではカリを舌で絡め取り、ヌルリと引っかかるように動かす。
+		 	ENDIF
+		PRINTFORMW そうそう経験出来ない濃厚な奉仕に、客の男の射精感はどんどん高まっていった…
+		ELSEIF !RAND:4
+		PRINTFORML %CALLNAME:MASTER%が廊下を歩いていると、個室の部屋から何か打ち付けるような音と喘ぎ声が聞こえた。
+		PRINTFORML 明らかに性行為によるものだが、この部屋は空き室の筈。そっと確認してみると、よく見えないが男女が後背位でSEXしていた。
+		PRINTFORML 女は角度的に顔が見えないが、男は宿泊客であることが確認できた。女性は恋人か娼婦だろうか…？
+		PRINTFORML 女性の腰を掴み、獣のように腰を一心不乱に動かす。射精しながらもピストンを続ける熱中ぶりだ。
+		PRINTFORML 注意するにもタイミングがある。事が終わった頃に再度様子を見ようと決めた。
+		PRINTFORMW ……案の定%CALLNAME%が男漁りをしていたと分かった。たっぷりとお仕置きが必要のようだ……
+		ELSEIF !RAND:3
+		PRINTFORML 騎乗位でゆったりとしたストロークで%CALLNAME%が腰を動かす。どちらも汗だくだがやめる気配はなかった。
+		PRINTFORML 何度も打ち付ける度に結合部からは精液が溢れ、子宮に余裕ができても男が再び種子を送り込んで満杯にしてしまう。
+		PRINTFORML この行為を幾度か繰り返したのち、ようやく二人の性器は離れ、濃厚な情事が終わった。
+		PRINTFORMW 今度は正式に君を買うと男は告げて客室へ戻る。新しい客を確保したことを%CALLNAME%は喜びつつ自室に帰っていった…
+		ELSEIF !RAND:2
+		PRINTFORML 事を終えた後、ベッドに寝そべる男のペニスに、%CALLNAME%は口で奉仕している。
+		PRINTFORML 不意に男が交際を求めてきたのを丁重に断りつつ、ゆっくりとペニスを口から離す。
+		PRINTFORML 自分の肉棒に頬ずりする%CALLNAME%をモノにしたいという欲求に支配され、男は乱暴に%CALLNAME%を組み伏せてしまう。
+		PRINTFORMW 強姦のような行為でも%CALLNAME%は受け入れ、男が気が済むまで交わりあった…
+		ELSE
+		PRINTFORML %CALLNAME%は慣れた動きで腰をくねらせ、その度に接合部からクチャクチャと淫靡な音が室内に響く。
+		PRINTFORML たまらず客は%CALLNAME%の飢える子宮に精液を流し込む、その感触に%CALLNAME%は淫らに声を上げた。
+		PRINTFORML つい膣内に射精してしまい謝罪しようとした男であったが、微笑んでお腹に手を当てる%CALLNAME%の姿に再び勃起してしまう。
+		PRINTFORMW ベッドに押さえつけられ、今度は男からの攻めに%CALLNAME%は妖艶な笑みで身体を預けた…
+		ENDIF
+	ENDIF
+		
+CALL MNG_LOG_ADD("EXP", "キス経験",		(5))
+CALL MNG_LOG_ADD("EXP", "フェラ経験",	(5))
+CALL MNG_LOG_ADD("EXP", "Ｖ経験",		(10))
+CALL MNG_LOG_ADD("EXP", "性交経験",		(10))
+CALL MNG_LOG_ADD("EXP", "絶頂経験",		(10))
+CALL MNG_LOG_ADD("EXP", "精飲経験",		(5))
+CALL MNG_LOG_ADD("EXP", "精液経験",		(5))
+CALL MNG_LOG_ADD("EXP", "膣射経験",		(5))
+
+;-------------------------------------------------
+;   キャラ口上:看板娘&営業イベント
+;-------------------------------------------------
+@KOJO_WORKEVENT_SEALES_K542
+#DIM L_money
+
+PRINTL
+PRINTL
+PRINTL
+;台詞
+SELECTCASE RAND:3
+	CASEELSE
+		PRINTL 
+ENDSELECT
+PRINTL
+SETCOLOR COLOR("緑")
+PRINTFORML %CALLNAME%はレストランでの仕事を終えると、他の場所へ応援に行ったようだ…
+;まずどこでお仕事するか
+;個室で売春（衣装名に魔質が入っており売春経験が50以上）
+IF STRCOUNT(CSTR:衣装名_全身服, "魔質") || EXP:売春経験 > 50
+	L_money = (EXP:売春経験+1)*5
+	IF !RAND:2
+		PRINTFORML 異性の肉欲を駆り立てるという魔性の衣装を身に纏った%CALLNAME%が男性客に声を掛けている。
+		PRINTFORML 魅了されてしまった男は、%CALLNAME%に導かれるまま個室へ入っていった…
+	ELSE
+		PRINTFORML 手伝いをしていた%CALLNAME%に男性客が声を掛けている、視線を落とすとズボン越しでも分かるほど勃起していた。
+		PRINTFORML 『お代金を頂くことになりますが』と言う%CALLNAME%の問いを男性客は快く了承し、二人は使われていない個室へと入っていった…
+	ENDIF
+	PRINTFORML その後、%CALLNAME%は『秘密の接待』で男性客に楽しんで頂いたようだ…
+;売店
+ELSEIF !RAND:3
+	L_money = (MNG_FC_LV_GET("労役設備ビット売店")+1)*100
+	IF !RAND:2
+		PRINTFORML %CALLNAME%は人手不足だった売店に入り、お土産を買おうとする宿泊客の対応していた。
+		PRINTFORML 娼婦として要求されている美貌もあって、注目を集める看板娘として活躍しているようだ…
+	ELSE
+		PRINTFORML %CALLNAME%はカウンターで会計をしているようだが、ウェイトレス姿のまま来てしまっているのか少し浮いて見える。
+		PRINTFORML しかし、コスプレしているようにも見えるので客寄せ効果としては上々のようだ…
+	ENDIF
+;フロント
+ELSEIF !RAND:2
+	L_money = (MNG_FC_LV_GET("労役設備ビットフロント")+1)*50
+	IF !RAND:2
+		PRINTFORML %CALLNAME%はフロントにて、来店した宿泊客の出迎えをしているようだ。
+		PRINTFORML 手馴れた様子で荷物を預かり、客室へと案内している姿はとても様になっていた…
+	ELSE
+		PRINTFORML フロントで団体の宿泊客の対応を%CALLNAME%が一人で行っていた。
+		PRINTFORML それでも難なくこなしてしまうあたり相当な対応力だろう…
+	ENDIF
+;娯楽室
+ELSE
+	L_money = (MNG_FC_LV_GET("労役設備ビット娯楽室")+1)*70
+	IF !RAND:2
+		PRINTFORML 娯楽室にてビリヤードを楽しんでいる宿泊客のお相手を%CALLNAME%はしているようだ。
+		PRINTFORML 手強くしかし逆転出来るよう密かにお膳立てする手腕はなかなかのものだ…
+	ELSE
+		PRINTFORML %CALLNAME%は団体の宿泊客の中に混じって、楽しそうにビリヤードをしていた。
+		PRINTFORML 彼女の魅惑的な仕草に、宿泊客たちもメロメロになっているようだ…
+	ENDIF
+ENDIF
+
+SELECTCASE CFLAG:労役評価
+	CASE IS >= 300
+		PRINTDATA
+			DATAFORM ベテランの%CALLNAME%がいると周りのスタッフ達も安心するらしい…
+			DATAFORM 客への対応も%CALLNAME%は完璧にこなしているようだ…
+			DATAFORM 周りから引っ張り凧状態で動き回る%CALLNAME%は忙しそうだ…
+			DATAFORM 困ったことをパパッと解決する%CALLNAME%に新人スタッフ達から尊敬されているようだ…
+		ENDDATA
+	CASE IS >= 250
+		PRINTL 何かと後輩のスタッフにアドバイスしているようだ…
+	CASE IS >= 200
+		PRINTL 常連の客ともお付き合いも良くなっているようだ…
+	CASE IS >= 150
+		PRINTL 長く働いているスタッフからも%CALLNAME%は一目置かれている…
+	CASE IS >= 100
+		PRINTFORML %CALLNAME%は客達から顔を覚えられ始めたようだ…
+	CASE IS >= 50
+		PRINTFORML %CALLNAME%はスタッフ達から頼りにされているようだ…
+	CASEELSE
+		PRINTFORML %CALLNAME%の働きは客達には目立ったは評価されていない様子だ…
+ENDSELECT
+
+L_money += (EXP:歌唱経験/10)+(EXP:家事経験/10)+(EXP:売春経験/10)+(EXP:誘惑経験/10)+(TALENT:人気*50)+(TALENT:謎の魅力*50)+(TALENT:魅惑*50)+(CFLAG:労役評価/2)
+PRINTFORMW 資金{L_money}を手に入れた
+RESETCOLOR
+
+;-------------------------------------------------
+;   キャラ口上:先輩後輩イベント
+;-------------------------------------------------
+@KOJO_WORKEVENT_TEACH_K542(ARG:0)
+#DIM NEWBIE
+#DIM MEMBER, 1000
+#DIMS NEWBIE_NAME
+
+VARSET MEMBER
+LOCAL = 0
+;自分より労役評価が低い奴隷がいるか検索
+FOR NEWBIE, 0, CHARANUM
+	IF CFLAG:NEWBIE:労役評価 <= CFLAG:労役評価 && NEWBIE != TARGET && NEWBIE != MASTER && CSTR:NEWBEE:衣装名_アクセサリー != "派遣メイド証"
+		;自分と相手の差が100以上であるか
+		IF CFLAG:労役評価 - CFLAG:MEMBER:労役評価 >= 100
+			MEMBER:LOCAL = NEWBIE
+			LOCAL++
+		ENDIF
+	ENDIF
+NEXT
+
+;後輩が居れば（自分と相手の差が100以上のキャラが居れば）イベントが発生する。
+IF LOCAL
+	NEWBIE_NAME '= CALLNAME:(MEMBER:(RAND:LOCAL))
+	SETCOLOR 0, 250, 150
+	DRAWLINE
+	PRINTFORML %CALLNAME%が後輩の%NEWBIE_NAME%と一緒に作業している…
+	PRINTL
+	;台詞
+	SELECTCASE NEWBIE_NAME
+		CASEELSE
+			PRINTL
+	ENDSELECT
+	;地の文
+	SELECTCASE RAND:6
+		CASE 0
+			PRINTFORML 混み始めたレストランの助っ人として%CALLNAME%と%NEWBIE_NAME%が客から注文を受けている。
+			PRINTFORML その他にも食器の片付けなどにてんてこ舞いな%NEWBIE_NAME%に変わって、%CALLNAME%が注文を全て引き受けた。
+			PRINTFORML 流れが落ち着いた後%NEWBIE_NAME%に感謝された%CALLNAME%だったが、本人は苦でもなかったようだ…
+		CASE 1
+			PRINTFORML 作業を終えてほっと一息吐いていた%NEWBIE_NAME%のところに%CALLNAME:MASTER%が通りかかる。
+			PRINTFORML 気づいた%NEWBIE_NAME%は目を輝かせて近寄ってきて、%CALLNAME:MASTER%に密着した。
+			PRINTFORML しばし暖かさを堪能していたが、ちょっぴり嫉妬した%CALLNAME%に耳を引っ張られて連れていかれた…
+		CASE 2
+			PRINTFORML 仕事後、食堂で%CALLNAME%と%NEWBIE_NAME%が食事をしながら仲良く談笑しているようだ。
+			PRINTFORML 勤務中は上下関係をしっかりと保つが、勤務外では友達のように語り合っている。
+			PRINTFORML 先輩後輩として良好な関係を築けたようで、これなら%NEWBIE_NAME%の今後も安心だろう。
+		CASE 3
+			PRINTFORML %NEWBIE_NAME%が倉庫で日用品の補充をしていたが、目的の品が見つからないようで辺りをウロウロしている。
+			PRINTFORML そこへ通りかかった%CALLNAME%が解りやすく教え、%NEWBIE_NAME%はきちんと覚えることが出来たようだ。
+			PRINTFORML 二人は仲好く話し合いながら作業に戻っていった…
+		CASE 4
+			PRINTFORML お帰りになる宿泊客の荷物を探していた%NEWBIE_NAME%だったが、今日は客が多くどれなのか解らなくなったようだ。
+			PRINTFORML しかし、共に対応していた%CALLNAME%が難なく荷物を見つけてスムーズに客へ手渡した。
+			PRINTFORML 危うく手間取るところだったと、%NEWBIE_NAME%が%CALLNAME%に感謝していた…
+		CASE 5
+			PRINTFORML 使われていない客室で、%CALLNAME%は後輩の%NEWBIE_NAME%と共にベッドメイキングをしている。
+			PRINTFORML シーツの両端を持ち皴を作らないようタイミングを合わせて広げるが、%NEWBIE_NAME%の動きがやや鈍い。
+			PRINTFORML %CALLNAME%がコツなどを教えたことで、徐々に上達していったようだ…
+	ENDSELECT
+	PRINTL
+	;%NEWBIE_NAME%は%CALLNAME%
+	SELECTCASE CFLAG:労役評価 - CFLAG:MEMBER
+		CASEELSE
+	ENDSELECT
+	PRINTL 
+	DRAWLINE
+	WAIT
+	RESETCOLOR
+ENDIF

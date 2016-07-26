@@ -1,0 +1,2371 @@
+;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+;
+;	Module		:KOJO_K0542_今泉影狼_TRAIN.ERB
+;	Facility	:キャラクター口上(No.542:今泉影狼)
+;
+;	Licence		:ライセンス詳細を参照。
+;
+;	口上テンプレート version :0.017
+;
+;	Modification Data:
+;
+;	Edit	Date			Author					Reason
+;	001		2015/06/19		暇人					新規作成
+;
+;_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/#
+
+;-------------------------------------------------------------------------------
+; 【作者コメント】
+;	欲望を抑えきれなかった。純愛だけでは足りなかった。もっとぐちゃぐちゃにしたかった。
+;	弱い影狼ちゃんも書きたかった。本能のままに書いていった。
+; 【メモ】
+;	口上が呼ばれる時には口上のキャラがTARGETに入った状態で呼ばれる。相方はASSIなので
+;	相方の種類が見たいときにはNO:ASSI == ?やCALLNAME:ASSI == "名前"等。
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+;【ライセンス詳細】
+;	・基本項目(許可する項目を"○"に、許可しない項目を"×"に変更してください。)
+;	+----+----+-------------------------------+
+;	|番号|許可|ライセンス内容                 |
+;	+----+----+-------------------------------+
+;	|   1| ○ | 処理上のバグ修正              |
+;	+----+----+-------------------------------+
+;	|   2| ○ | 口上の誤字・脱字の修正        |
+;	+----+----+-------------------------------+
+;	|   3| ○ | 口上まとめへの収録            |
+;	+----+----+-------------------------------+
+;	|   4| ○ | 口上の新規追加                |
+;	+----+----+-------------------------------+
+;	|   5| ○ | 既存口上の改変                |
+;	+----+----+-------------------------------+
+;	|   6| ○ | 改変した口上の自由な再配布    |
+;	+----+----+-------------------------------+
+;	|   7| ○ | 口上内容の移植・転載          |
+;	+----+----+-------------------------------+
+;	|   8| × | 商業で何らかの形での使用      |
+;	+----+----+-------------------------------+
+;
+;【ライセンス特記】
+;	加筆/修正/改変/移植する場合、作者に連絡を頂けるとありがたいですが、別に無くても構いません。
+;	その時には、元の口上（つまりこの口上）が元であることを明記してください。
+;	まとめは可ですが、大きな更新やら何やらがあった場合（たとえばコマンド追加だとか）は
+;	これまた作者まで連絡を頂けるとありがたいです。無くても構いませんが。
+;	それと繰り返しますが商業利用は不可です。面倒なことです。
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; 【フラグ使用状況】
+;  ※CFLAG:500～999まで自由に使用可能
+;
+;CFLAG:500 
+;CFLAG:501 
+;CFLAG:502 
+;CFLAG:503 
+;CFLAG:504 
+;…
+;
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+;【口上の新規作成手順】
+;
+;①「K542」をキャラ番に、文字を詰めて全置換する。
+;  （例：キャラ番が17番なら、「K17」と置換する）
+;
+;以上で完了です。
+;-------------------------------------------------------------------------------
+
+;===============================================================================
+;  ◇記載関数一覧(記載順)
+;
+;		Module Name						Explanation
+;
+; *- 標準関数
+;
+;	・ KOJO_EXIST_K542					キャラ口上:存在チェック
+;	・ KOJO_EXTRA_K542					キャラ口上:エキストラモード
+;	・ KOJO_ENCOUNTER_K542				キャラ口上:遭遇時
+;	・ KOJO_ACTION_K542					キャラ口上:行動部
+;	・ KOJO_LOST_VIRGIN_K542			キャラ口上:処女喪失時
+;	・ KOJO_ORGASM_K542					キャラ口上:絶頂時
+;	・ KOJO_ORGASM_M_K542				キャラ口上:絶頂させた時
+;	・ KOJO_PALAMCHG_K542				キャラ口上:各種PALAM変動時
+;
+;===============================================================================
+
+;-------------------------------------------------------------------------------
+;   標準関数
+;-------------------------------------------------------------------------------
+
+;=================================================
+;   sub KOJO_EXIST_K542
+;=================================================
+;   キャラ口上:存在チェック
+;-------------------------------------------------
+; Output:
+;  RETURN				真偽値(口上有無)
+;-------------------------------------------------
+@KOJO_EXIST_K542
+;PANCTIONが入っていなければこの口上のフラグを消す。
+TRYCCALLFORM PANCTION_CFLAG(0)
+	RETURN 1
+CATCH
+	RETURN 0
+ENDCATCH
+
+;=================================================
+;   sub KOJO_EXTRA_K542
+;=================================================
+;   キャラ口上:エキストラモード
+;-------------------------------------------------
+;   初回時に素質などを変更する関数
+;-------------------------------------------------
+@KOJO_EXTRA_K542
+;未使用。いつか使うかも。
+
+;=================================================
+;   sub KOJO_ENCOUNTER_K542
+;=================================================
+;   キャラ口上:遭遇時
+;-------------------------------------------------
+; Input:
+;  ARGS					処理区分
+;	[START]				調教開始時
+;	[END]				調教終了時
+;-------------------------------------------------
+@KOJO_ENCOUNTER_K542(ARGS)
+
+SELECTCASE ARGS
+	;-------------------------------------------------
+	;【START】 調教開始時の口上
+	;-------------------------------------------------
+	CASE "START"
+
+		;-------------------------------------------------
+		;- １回のみの口上
+		;-------------------------------------------------
+
+		;初回調教
+		IF !MARK:陥落刻印 && C_FIRSTTIME_遭遇(1)
+
+			;購入で入手。諦めてる。どうしようもないし、出来るだけ被害を小さくするために従うしかない。
+			IF !CFLAG:イベント加入
+				PRINTW 「……誰？」
+				PRINTFORML 　その問いかけに%CALLNAME:MASTER%は名前を名乗ると、%CALLNAME:TARGET%は興味が無いのかすぐにこちらから目を逸らした。
+				PRINTW 「そ。じゃ、よろしく？」
+				PRINTFORML 　どうやら%CALLNAME:TARGET%はこの環境に適応し、それなりの態度をとっているらしい。
+				PRINTW 　しかし、どこか反抗的な態度は抜けていない。今の状況をしっかりと分からせる必要があるようだ。
+			;イベントで入手。現時点未実装。スルー。
+			ELSE
+				RETURN 0
+				;PRINTFORMW 
+			ENDIF
+
+		;性奴隷LV1
+		ELSEIF !MARK:陥落刻印 && (ABL:性奴隷 == 1) && C_FIRSTTIME_遭遇(2)
+			PRINTW 「そう、ね」
+			PRINTFORML 　部屋に入り、調教の準備をしていると%CALLNAME:TARGET%が何かを言い出した。
+			PRINTW 「ここの環境も悪くないのかも」
+			PRINTFORML 　そう言って%CALLNAME:TARGET%は微笑んだ。
+			PRINTFORMW しかし、その言葉が%CALLNAME:MASTER%に向けたものなのか、独り言なのかは%CALLNAME:MASTER%には分からなかった……
+
+		;性奴隷LV2。単純にこれからにあたって興味があったから質問。
+		ELSEIF !MARK:陥落刻印 && (ABL:性奴隷 == 2) && C_FIRSTTIME_遭遇(3)
+			PRINTW 「ちょっといいかしら」
+			PRINTFORML 　部屋に入るなり、起きていた%CALLNAME:TARGET%に問いかけられた。その瞳は真剣なものだ。
+			PRINTW 「なんで私を選んだの？」
+			PRINTFORML 　予想外の質問に%CALLNAME:MASTER%が戸惑っていると、%CALLNAME:TARGET%はすぐに首を振って言葉を続ける。
+			PRINTW 「やっぱりいいわ」
+			PRINTW 「そんなことはもう関係はないし……」
+			PRINTL 　そこで言葉を切る。そして服を脱ぎだした。それに合わせて笑いながらさらに言葉を紡ぐ。
+			PRINTW 「やることは変わらないわ」
+			PRINTW 　笑っている顔、笑っている瞳。しかし、その瞳は狂気を孕んでいるように見えた……
+
+		;隷属開始。冗談とは言っていない。まあNTRたりするんですけどね
+		ELSEIF !MARK:陥落刻印 && MARK:隷属刻印 && C_FIRSTTIME_遭遇(4)
+			PRINTW 「お待ちしておりました」
+			PRINTW 「これまでのご無礼、深くお詫びいたします」
+			PRINTFORMW 「これからは%CSTR:二人称%様の配下として、忠実な部下になることを誓いましょう」
+			PRINTL 　一体どうしたというのか。昨日までとは違いすぎる態度に困惑する%CALLNAME:MASTER%。
+			PRINTW 「なんて」
+			PRINTFORML 　それを見て悪戯が成功したとばかりに笑う%CALLNAME:TARGET%。しかし目は──
+			PRINTW 「これからもよろしく、ね」
+			PRINTW 　全く笑っていない。そして、今度は明確に瞳の中の狂気を確認することが出来た……
+
+		;陥落開始
+		ELSEIF !TALENT:上位陥落 && MARK:陥落刻印 && C_FIRSTTIME_遭遇(5)
+			PRINTW 「ねえ」
+			PRINTFORML 　入ってそうそうに何かを言いに来た%CALLNAME:TARGET%。どうやら真剣なもののようだ。
+			PRINTFORMW 「%CSTR:一人称%、%CSTR:二人称%のこと好きになっちゃった」
+			PRINTW 「理由は……ま、言わなくても分かるわね」
+			;ストックホルム症候群。監禁されたりして制限後優しくされたりしたら好意を持つようになる。自覚済み。
+			PRINTFORML 　確かに、理由は予想が付く。だが、理由を自覚していて告白してくるほどかどうか。%CALLNAME:MASTER%には真偽が分からなかった。
+			PRINTFORML そうして戸惑っている%CALLNAME:MASTER%に%CALLNAME:TARGET%は話を続ける。
+			PRINTFORMW 「……%CSTR:二人称%は」
+			PRINTFORMW 　そこで%CALLNAME:TARGET%は言葉を区切る。これ以上言うのが辛いのか──
+			PRINTW 「私を捨てたり、しない……？」
+			PRINTFORMW 　悲しいのか。狂気が消え、恐れと怯えが入り混じった瞳に、%CALLNAME:MASTER%が返答を返すことは──ない。
+
+		;上位陥落
+		ELSEIF TALENT:上位陥落 && C_FIRSTTIME_遭遇(6)
+			PRINTW 「ふふ、ふふっ」
+			PRINTFORML 　何がおかしいのか、突然笑い出した%CALLNAME:TARGET%。
+			PRINTFORML 一体どうしたのか%CALLNAME:MASTER%が問いかけると、笑ったままで
+			PRINTFORMW 「ええ、えっと……%CSTR:二人称%がこれをくれたのが嬉しくて」
+			;面倒だし伴侶のほうで。
+			PRINTFORMW 　そう言って%CALLNAME:TARGET%は%CALLNAME:MASTER%に左手の指輪を嬉しそうに見せた。
+			PRINTW 「ふふふふ、うふふ……」
+			PRINTW 　どれだけ嬉しいというのか、%CALLNAME:TARGET%は延々と笑い続けていた……
+
+		;-------------------------------------------------
+		;- ２回目以降
+		;-------------------------------------------------
+		ELSE
+
+			;反発刻印LV3
+			IF MARK:反発刻印 == 3
+				PRINTFORML 「%"……" * (1 + RAND:3)%」
+				;陥落済み？
+				PRINTFORML 　%CALLNAME:TARGET%は不満\@ MARK:陥落刻印 ? と喜びが入り混じった # が今にも爆発しそうな \@顔でこちらを見ている……
+			;隷属開始。50%で下の分岐に行くように。
+			ELSEIF MARK:隷属刻印 && PERCENT(50)
+				;隷属（2）+陥落（3）+上位陥落（2）の6パターン。
+				SELECTCASE IF_FALL_K542(2, 2, 2)
+					;隷属
+					CASE 0
+						PRINTL 「ようこそ。お待ちしておりました」
+						PRINTL 「なーんてね。……待ってたのは本当よ？」
+					CASE 1
+						PRINTL 「あー……っと、ごめんなさいね」
+						PRINTL 「まだ部屋が片付け終わってないのだけど……平気？」
+					;陥落
+					CASE 2
+						PRINTL 「来てくれたのね、嬉しいわ……」
+					CASE 3
+						PRINTL 「あっ」
+						PRINTFORML 　%CALLNAME:TARGET%はこちらに気づくと、すぐに%WORD_K542("笑み")%こちらを見る。
+						PRINTL 「今日は……どうするの？」
+					;輝夜口上を参考にしました。ありがとうございました。
+					CASE 4
+						PRINTFORML 　部屋を開けると、%CALLNAME:TARGET%が髪を整えているのが見えた。
+						PRINTL 梳かしているのに夢中で、こちらには気づいていないようだ……
+						IF PERCENT(50)
+							PRINTL ゆっくりと近づいて後ろから話しかけると、驚いた様子でこちらを見てきた……
+							PRINTL 「びっくりした……来たなら教えてくれればよかったのに」
+						ELSE
+							PRINTL 話しかけてみると、手入れをしたまま顔をこちらに向けた。
+							PRINTL 「ごめんね、ちょっと待ってて。もう少しで終わるから」
+						ENDIF
+					;上位陥落
+					CASE 5
+						PRINTL 「ね、ね」
+						PRINTFORML 　部屋に入ると、%CALLNAME:TARGET%が%WORD_K542("笑み")%こちらにすり寄ってきた。
+						PRINTL その仕草は両手を腰の後ろで組み、上半身を強調してこちらを上目使いで見ているものだ。
+						PRINTL それはわざとやっているのか、否、おそらくわざとやっているのだろう。彼女がそのことの意味を知らないはずはない。
+						PRINTFORML しかし、%CALLNAME:MASTER%はそれに気づかないふりをして%CALLNAME:TARGET%の方へ顔を向けた。
+						PRINTL 「今日は何をするの？」
+						PRINTFORML 　変わらない笑みで尋ねてくる%CALLNAME:TARGET%に、その行為を始めることで応えた……
+					CASE 6
+						PRINTL 「……」
+						PRINTFORML 　そっと%CALLNAME:TARGET%が居る部屋に入ろうとすると、%CALLNAME:TARGET%が真剣な顔で思案をしているのが見えた。
+						PRINTL 「あっ」
+						PRINTFORML 　しばらくその顔を見つめていると、ようやく気づいたのか%WORD_K542("笑み")%ちらりとこちらを見る。
+						PRINTL 「……見てた？」
+						PRINTFORML 　その言葉に%CALLNAME:MASTER%は肯定で返すと、%CALLNAME:TARGET%は顔を赤くした。
+						PRINTL 「声をかけてくれればいいのに」
+				ENDSELECT
+			ELSEIF ABL:性奴隷
+				;性奴隷Lv2以上なら分岐追加。
+				SELECTCASE RAND:(ABL:性奴隷 > 1 ? 4 # 2)
+					;1以上
+					CASE 0
+						PRINTL 「あら、来たの？」
+						SIF MARK:陥落刻印
+							PRINTL 「私も会いたいと思っていたところよ」
+					CASE 1
+						PRINTL 「またするのね」
+						SIF MARK:陥落刻印
+							PRINTFORML 　そう言いながら、%CALLNAME:TARGET%の顔には喜びが滲み出ている……
+					;2以上
+					CASE 2
+						PRINTL 「あ……」
+						PRINTL 「来て、くれたの」
+					CASE 3
+						PRINTL 「……っ、はぁ……」
+						PRINTL 「……！　来てたの？」
+						SIF MARK:陥落刻印
+							PRINTL 「呼んでくれたらよかったのに」
+				ENDSELECT
+			;それ以外
+			ELSE
+				PRINTL 「……？」
+				PRINTL 「……あ。なるほど」
+				PRINTL 「あんまり痛くしないでね？」
+			ENDIF
+			WAIT
+
+		ENDIF
+
+;		;隷属で二人称変更
+		SIF MARK:隷属刻印
+			CSTR:二人称 '= "ご主人様"
+
+	;-------------------------------------------------
+	;【END】 調教終了時の口上
+	;-------------------------------------------------
+	CASE "END"
+
+		;何もせずに帰る
+		IF PREVCOM == 0
+			IF MARK:陥落刻印
+				PRINTL 「何も、しないの？」
+			ELSE
+				PRINTL 「えっ……いや、あの……」
+				PRINTL 「何をしに……きたの？」
+			ENDIF
+		;反発刻印LV3
+		ELSEIF MARK:反発刻印 == 3
+			PRINTFORML 「%"……" * (1 + RAND:3)%はぁっ」
+			PRINTFORML 　%CALLNAME:TARGET%は\@ MARK:陥落刻印 ? 不安と喜びの混じった複雑な # 不満を一生懸命押さえている \@表情でこちらから目を逸らした……
+		;隷属開始。50%の確率で下行き。
+		ELSEIF MARK:隷属刻印 && PERCENT(50)
+			;隷属（2）+陥落（2）+上位陥落（2）の6パターン。
+			SELECTCASE IF_FALL_K542(2, 2, 2)
+				;隷属
+				CASE 0
+					PRINTL 「あ、えっと……おしまい？」
+					PRINTL 「……ありがとうございました」
+				CASE 1
+					PRINTL 「ん、今日はこれでおしまいなのね」
+					PRINTL 「……なんでもないわ」
+					PRINTFORML 　%CALLNAME:TARGET%は何かを%CALLNAME:MASTER%に言いかけたが、口をつぐんだ。
+					PRINTFORML %CALLNAME:MASTER%はそれに気付かなかったふりをして、一旦調教を終わらせた……
+				;陥落刻印
+				CASE 2
+					PRINTL 「終わり……ね」
+					PRINTL 「もう少し……いえ、なんでもないわ」
+				CASE 3
+					PRINTL 「もう終わり……？」
+					PRINTFORML 　%CALLNAME:TARGET%はそう言った後、すぐに首を振り、%CALLNAME:MASTER%に抱きついてきた。
+					PRINTFORML 「ちょっとだけ、ほんのちょっとだけでいいの。%CSTR:二人称%のこと、抱きしめさせて」
+					PRINTFORML 　その乞うような願いに、%CALLNAME:MASTER%はしばらくそのままにしていることにした。
+				;上位陥落
+				CASE 4
+					PRINTL 「……ふぁ？　え、あ……おしまい？」
+					PRINTFORML 　変な声を出し、問いかけてくる%CALLNAME:TARGET%。%CALLNAME:MASTER%がその疑問に答えると、
+					PRINTL 「あ、ええ……そう」
+					PRINTFORML 悲しげな%WORD_K542("哀")%で、どこかしゅんとした様子の%CALLNAME:TARGET%。気のせいか、耳も垂れているように見える。
+					PRINTL 「ねえ」
+					PRINTL 　そして顔を背けたまま、一言。
+					PRINTL 「また……来てね」
+				CASE 5
+					PRINTL 「……終わっちゃった」
+					PRINTFORML 　一言、%CALLNAME:TARGET%はどこか寂しそうな声でそう言った。さらに%CALLNAME:TARGET%は続けてもう一回、小さな声で
+					PRINTL 「また会いに来てね」
+					PRINTFORML 　と憂いを帯びた微笑みで、儚げな表情を作り願いを述べる%CALLNAME:TARGET%。しかし%CALLNAME:MASTER%は何も聞こえないように去った。
+					;ひらがなのほうがそれっぽいよね
+					PRINTL 「……きてね」
+			ENDSELECT
+		;性奴隷
+		ELSEIF ABL:性奴隷
+			;性奴隷Lv2以上で分岐追加。
+			SELECTCASE RAND:(ABL:性奴隷 > 1 ? 4 # 2)
+				;1以上
+				CASE 0
+					PRINTL 「……ん、おわり……？」
+					SIF MARK:陥落刻印 && BASE:0 >= 100
+						PRINTL 「もうちょっと……やっぱり、いいわ」
+				CASE 1
+					PRINTFORML 「もう、\@ FLAG:時間帯 == [[時間帯:昼]] ? 休憩なの # 今日は終わり \@\@ MARK:陥落刻印 ? …… #  \@？」
+					SIF MARK:陥落刻印
+						PRINTL 「……ぁ、な、なんでもないわ」
+				;2以上
+				CASE 2
+					PRINTL 「ん……ぁ、お、おわり……？」
+				CASE 3
+					PRINTL 「……え、あ、おしまい……ね」
+					SIF MARK:陥落刻印
+						PRINTL 「またね」
+			ENDSELECT
+		;それ以外
+		ELSE
+			PRINTL 「……終わり？」
+			PRINTL 「……そう」
+		ENDIF
+		;調教対象が影狼のみかつ影狼がふたなりでレズ経験が30かつ陥落刻印1以上かつ白百合の指輪を装備している。
+		SIF TALENT:ふたなり && ASSI == 0 && EXP:レズ経験 >= 30  && MARK:陥落刻印 && CSTR:衣装名_アクセサリー == "白百合の指輪"
+			CALL KOJO_DEFAULT_SRYR_END
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+
+;=================================================
+;   sub KOJO_ACTION_K542
+;=================================================
+;   キャラ口上:行動部
+;-------------------------------------------------
+@KOJO_ACTION_K542
+
+;-- CHK:実行コマンド
+SELECTCASE SELECTCOM
+
+;-------------------------------------------------------------------------------
+;◆愛撫系
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,愛撫
+	;-------------------------------------------------
+	CASE [[TRAIN:愛撫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				PRINTL 「……っ、あ……」
+				;（いじる）漢字のほうがえろい
+				PRINTFORMW すっかり抵抗しなくなった%CALLNAME:TARGET%の身体を弄ると、どこか期待を込めた目で見つめてきた……
+			;それ以外
+			ELSE
+				PRINTL 「あ、や、やめ……」
+				PRINTW 少し抵抗してくる%CALLNAME:TARGET%の身体をほぐすように愛撫すると、少しづつ抵抗が弱くなってきた……
+			ENDIF
+		;二回目以降
+		ELSE
+			;隷属刻印
+			IF MARK:隷属刻印
+				SELECTCASE IF_RAND_K542()
+					;隷属刻印
+					CASE 0
+						PRINTL ゆっくりと優しく触ると、抵抗をせずに受け入れている……
+						PRINTW 「ふぁっ……んぅ、あ……」
+					CASE 1
+						PRINTL 「んぁ、あっ、ふぁ……」
+						PRINTFORML \@ MARK:陥落刻印 ? 全く抵抗をしない # どこか抵抗のある \@%CALLNAME:TARGET%の身体を優しく触ると、%CALLNAME:TARGET%は震えるように身体を揺らし、もたれかかってくる。
+						PRINTW それをできるかぎりやさしく受けとめつつ、キスをしながら愛撫を続けた……
+					CASE 2
+						PRINTFORML 明らかに期待した目でこちらを見る%CALLNAME:TARGET%に応えるように身体を触ってやると、それだけで背を反らしてすり寄ってくる。
+						PRINTL 「あ、あっ……はふ、ふぇ」
+						PRINTFORML そのまま気が抜けている%CALLNAME:TARGET%を抱えて、%WORD_K542("胸")%の先の突起をこねくり回す。
+						PRINTL 「んぁっ……あ、ふぁ、あっ！」
+						PRINTFORMW そうして蕩けた%CALLNAME:TARGET%にキスをしながら愛撫した……
+					;陥落刻印。耳とかしっぽとか
+					CASE 3
+						PRINTFORML 　%CALLNAME:TARGET%の肌を優しく撫で、控えめに身体を預けてきた……
+						PRINTL 「ん……」
+						PRINTW 全身を愛撫するついでに耳を軽く揉むと、蕩けた目でこちらを見てきた……
+					CASE 4
+						PRINTFORML キスをして頭を撫でると、それだけで%CALLNAME:TARGET%は少し身体を震わせた……
+						PRINTL 「んんぅ……あ、ぁ……」
+					CASE 5
+						PRINTL 軽く抱きしめて首筋を撫でると、いやいやと少し身体をよじらせた……
+						PRINTL 「あ……いぁ……や……」
+					;淫乱刻印
+					CASE 6
+						PRINTFORML 全身を気持良くさせるために耳を舐めると、%CALLNAME:TARGET%は大きく身体を震わせた……
+						PRINTL 「み……やっ……ひぅ」
+					CASE 7
+						PRINTL 「もっと……っ、もっとして……っ」
+						PRINTFORML どうやら優しく愛撫するだけでは足りないらしく、%CALLNAME:MASTER%は行為を激しくした……
+						PRINTL 「あっ……ん、う……あぁっ」
+				ENDSELECT
+			;それ以外
+			ELSE
+				PRINTDATAL
+					DATA 「やめ、て……」
+					DATA 「さわら、ないで……」
+				ENDDATA
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,胸愛撫
+	;-------------------------------------------------
+	CASE [[TRAIN:胸愛撫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				PRINTFORML %CALLNAME:TARGET%の%WORD_K542("胸")%を揉みしだくと、%CALLNAME:TARGET%は頭を横に振って身体をよじっている……
+				PRINTL 「いやぁ……あう……」
+			;それ以外
+			ELSE
+				PRINTW 「やめ……てぇ……っ」
+			ENDIF
+		;二回目以降
+		ELSE
+			;隷属刻印
+			IF MARK:隷属刻印
+				SELECTCASE IF_RAND_K542()
+					;隷属刻印
+					CASE 0
+						PRINTL 「んぅ……はぁっ……はぅ」
+						PRINTFORML %WORD_K542("胸")%を片手で揉み、もう一つの手で服では隠し切れない突起を摘む
+						PRINTL 「はあぅっ！　あむ……んぁ」
+						PRINTL それを何度も繰り返すと、くぐもった声を隠しきれず、その濡れた瞳をこちらに向けた……
+					CASE 1
+						PRINTL 「んひぃっ……はふ、へ……ひ」
+						PRINTL 乳首の先に少しだけ触れるように指先をちろちろと動かす
+						PRINTL 「じらさ、ないでぇ……っ」
+						PRINTL その声に応え、きゅっと摘んでやると、身体を大きく反らせた……
+					CASE 2
+						PRINTL 「ひゃっ……あっ、ふ……」
+						PRINTL 抵抗するどころか
+					;陥落刻印
+					CASE 3
+						PRINTL 「そん、ぁ……に、はげし……や……っ」
+						PRINTL 無意識の内に行為が激しくなっていたのか、少し嫌がっているようだ……
+						PRINTL しかし奴隷の声に耳を傾ける必要はなく、もっと激しく胸を愛撫した……
+						PRINTL 「そんな、ぁ……」
+					CASE 4
+						PRINTL 
+					CASE 5
+						PRINTL 
+					;淫乱刻印
+					CASE 6
+					CASE 7
+						PRINTFORML 
+				ENDSELECT
+			;それ以外
+			ELSE
+				IF RAND:2
+				ELSE
+				ENDIF
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,胸吸い
+	;乳首をきゅう……っと絞る感じに吸うのでじれったいぐらいの
+	;-------------------------------------------------
+	CASE [[TRAIN:胸吸い]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,クリ愛撫
+	;-------------------------------------------------
+	CASE [[TRAIN:クリ愛撫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,クンニ
+	;-------------------------------------------------
+	CASE [[TRAIN:クンニ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,ペニス愛撫
+	;-------------------------------------------------
+	CASE [[TRAIN:ペニス愛撫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,フェラする
+	;-------------------------------------------------
+	CASE [[TRAIN:フェラする]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,指挿れ
+	;-------------------------------------------------
+	CASE [[TRAIN:指挿れ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,アナル愛撫
+	;-------------------------------------------------
+	CASE [[TRAIN:アナル愛撫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,アナル舐め
+	;-------------------------------------------------
+	CASE [[TRAIN:アナル舐め]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,自慰
+	;-------------------------------------------------
+	CASE [[TRAIN:自慰]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,胸自慰
+	;-------------------------------------------------
+	CASE [[TRAIN:胸自慰]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+
+
+;-------------------------------------------------------------------------------
+;◆コミュ系
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,キスする
+	;-------------------------------------------------
+	CASE [[TRAIN:キスする]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,口説く
+	;-------------------------------------------------
+	CASE [[TRAIN:口説く]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;PRINTFORMW 
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+
+;-------------------------------------------------------------------------------
+;◆奉仕系
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,手淫
+	;-------------------------------------------------
+	CASE [[TRAIN:手淫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,フェラチオ
+	;-------------------------------------------------
+	CASE [[TRAIN:フェラチオ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,パイズリ
+	;-------------------------------------------------
+	CASE [[TRAIN:パイズリ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,素股
+	;-------------------------------------------------
+	CASE [[TRAIN:素股]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ｗ手淫
+	;-------------------------------------------------
+	CASE [[TRAIN:Ｗ手淫]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ｗフェラ
+	;-------------------------------------------------
+	CASE [[TRAIN:Ｗフェラ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ｗパイズリ
+	;-------------------------------------------------
+	CASE [[TRAIN:Ｗパイズリ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,シックスナイン
+	;-------------------------------------------------
+	CASE [[TRAIN:シックスナイン]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------------------------------------
+	;◆奉仕(女主人系)
+	;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,愛撫させる （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:愛撫させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,クンニさせる （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:クンニさせる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,レズシックスナイン （両方がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:レズシックスナイン]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,貝あわせ （両方がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:貝あわせ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+;-------------------------------------------------------------------------------
+;◆道具系
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,ローター
+	;-------------------------------------------------
+	CASE [[TRAIN:ローター]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ｅマッサージャ
+	;-------------------------------------------------
+	CASE [[TRAIN:Ｅマッサージャ]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,バイブ
+	;-------------------------------------------------
+	CASE [[TRAIN:バイブ]]
+
+		;- 挿入時
+		IF !TEQUIP:Ｖ器具経過ターン
+			;初めて
+			IF C_FIRSTTIME_COM()
+				;処女
+				IF TCVAR:履歴_EXP_処女喪失
+					;隷属開始
+					IF MARK:隷属刻印
+						;PRINTFORMW 
+					;それ以外
+					ELSE
+						;PRINTFORMW 
+					ENDIF
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;二回目以降
+			ELSE
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;- 継続中
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,アナルバイブ
+	;-------------------------------------------------
+	CASE [[TRAIN:アナルバイブ]]
+
+		;- 挿入時
+		IF !TEQUIP:Ａ器具経過ターン
+			;初めて
+			IF C_FIRSTTIME_COM()
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;二回目以降
+			ELSE
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;- 継続中
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+;-------------------------------------------------------------------------------
+;◆性交系
+;-------------------------------------------------------------------------------
+
+	;-------------------------------------------------
+	;xxx,正常位
+	;-------------------------------------------------
+	CASE [[TRAIN:正常位]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;処女
+			IF TCVAR:履歴_EXP_処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,後背位
+	;-------------------------------------------------
+	CASE [[TRAIN:後背位]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;処女
+			IF TCVAR:履歴_EXP_処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,騎乗位
+	;-------------------------------------------------
+	CASE [[TRAIN:騎乗位]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;処女
+			IF TCVAR:履歴_EXP_処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,対面座位
+	;-------------------------------------------------
+	CASE [[TRAIN:対面座位]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;処女
+			IF TCVAR:履歴_EXP_処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,背面座位
+	;-------------------------------------------------
+	CASE [[TRAIN:背面座位]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;処女
+			IF TCVAR:履歴_EXP_処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,正常位アナル
+	;-------------------------------------------------
+	CASE [[TRAIN:正常位アナル]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;Ａ処女
+			IF TCVAR:履歴_EXP_Ａ処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,後背位アナル
+	;-------------------------------------------------
+	CASE [[TRAIN:後背位アナル]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;Ａ処女
+			IF TCVAR:履歴_EXP_Ａ処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,騎乗位アナル
+	;-------------------------------------------------
+	CASE [[TRAIN:騎乗位アナル]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;Ａ処女
+			IF TCVAR:履歴_EXP_Ａ処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,対面座位アナル
+	;-------------------------------------------------
+	CASE [[TRAIN:対面座位アナル]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;Ａ処女
+			IF TCVAR:履歴_EXP_Ａ処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,背面座位アナル
+	;-------------------------------------------------
+	CASE [[TRAIN:背面座位アナル]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+			;Ａ処女
+			IF TCVAR:履歴_EXP_Ａ処女喪失
+				;陥落開始
+				IF MARK:陥落刻印
+					;PRINTFORMW 
+				;隷属開始
+				ELSEIF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			;それ以外
+			ELSE
+				;隷属開始
+				IF MARK:隷属刻印
+					;PRINTFORMW 
+				;それ以外
+				ELSE
+					;PRINTFORMW 
+				ENDIF
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------------------------------------
+	;◆性交(逆セックス系)
+	;-------------------------------------------------------------------------------
+	;デフォルトでは構文省略。使用する場合は他のコマンドから構文をコピーして下さい。
+
+	;-------------------------------------------------
+	;xxx,正常位させる （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:正常位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,後背位させる （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:後背位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,騎乗位する （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:騎乗位する]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,対面座位する （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:対面座位する]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,背面座位させる （主人がオンナのみ）
+	;-------------------------------------------------
+	CASE [[TRAIN:背面座位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------------------------------------
+	;◆性交(逆アナルセックス系)
+	;-------------------------------------------------------------------------------
+	;デフォルトでは構文省略。使用する場合は他のコマンドから構文をコピーして下さい。
+
+	;-------------------------------------------------
+	;xxx,Ａ正常位させる
+	;-------------------------------------------------
+	CASE [[TRAIN:Ａ正常位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ａ後背位させる
+	;-------------------------------------------------
+	CASE [[TRAIN:Ａ後背位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ａ騎乗位する
+	;-------------------------------------------------
+	CASE [[TRAIN:Ａ騎乗位する]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ａ対面座位する
+	;-------------------------------------------------
+	CASE [[TRAIN:Ａ対面座位する]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ａ背面座位させる
+	;-------------------------------------------------
+	CASE [[TRAIN:Ａ背面座位させる]]
+
+		;初めて
+		IF C_FIRSTTIME_COM()
+		;二回目以降
+		ELSE
+		ENDIF
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_LOST_VIRGIN_K542
+;=================================================
+;   キャラ口上:処女喪失時
+;-------------------------------------------------
+; Input:
+;  ARG					PALAM変動値
+;-------------------------------------------------
+@KOJO_LOST_VIRGIN_K542(ARG)
+
+;-- CHK
+SELECTCASE ARG
+	;-------------------------------------------------
+	;xxx,処女喪失
+	;-------------------------------------------------
+	CASE [[口上:処女喪失]]
+		;陥落かつ主人のセックスによる処女喪失
+		IF MARK:陥落刻印 && TCVAR:主人性交フラグＶ
+			;PRINTFORMW 
+		;それ以外の時に処女喪失
+		ELSE
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,Ａ処女喪失
+	;-------------------------------------------------
+	CASE [[口上:Ａ処女喪失]]
+		;陥落かつ主人のセックスによるＡ処女喪失
+		IF MARK:陥落刻印 && TCVAR:主人性交フラグＡ
+			;PRINTFORMW 
+		;それ以外の時に処女喪失
+		ELSE
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,童貞喪失 (オトコ/ふたなり/男の娘用) (※Ｖ性交時のみ)
+	;-------------------------------------------------
+	CASE [[口上:童貞喪失]]
+		;陥落かつ主人のセックスによる童貞喪失
+		IF MARK:陥落刻印 && TCVAR:主人性交フラグＰ
+			;PRINTFORMW 
+		;それ以外の時に処女喪失
+		ELSE
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_ORGASM_K542
+;=================================================
+;   キャラ口上:絶頂時
+;-------------------------------------------------
+@KOJO_ORGASM_K542
+
+;-- CHK:絶頂タイプ
+SELECTCASE TCVAR:絶頂タイプ
+	;-------------------------------------------------
+	;xxx,絶頂
+	;-------------------------------------------------
+	CASE [[口上:Ｃ絶頂]], [[口上:Ｂ絶頂]], [[口上:Ｖ絶頂]], [[口上:Ａ絶頂]]
+
+		;強絶頂
+		IF TCVAR:絶頂強度 >= 2
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;絶頂
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,射精した (ふたなり/オトコ/男の娘のみ)
+	;-------------------------------------------------
+	CASE [[口上:Ｐ射精]]
+
+		;陥落開始
+		IF MARK:陥落刻印
+			;PRINTFORMW 
+		;隷属開始
+		ELSEIF MARK:隷属刻印
+			;PRINTFORMW 
+		;それ以外
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_ORGASM_M_K542
+;=================================================
+;   キャラ口上:絶頂させた時
+;-------------------------------------------------
+@KOJO_ORGASM_M_K542
+
+;-- CHK:絶頂無し
+SIF !TCVAR:被射精部位
+	RETURN
+
+;-- CHK:
+SELECTCASE TCVAR:被射精部位
+	;-------------------------------------------------
+	;xxx,主人Ａ射精 (アナルセックスで射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人Ａ射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人Ａ射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人Ｖ射精 (セックスで射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人Ｖ射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人Ｖ射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人手射精 (手で射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人手射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人手射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人口射精 (口で射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人口射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人口射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人胸射精 (胸で射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人胸射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人胸射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人秘裂射精 (秘裂で射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人秘裂射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人秘裂射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,主人足射精 (足で射精させた)
+	;-------------------------------------------------
+	CASE [[口上:主人足射精]]
+
+		;初めて
+		IF C_FIRSTTIME_KOJO([[口上:主人足射精]])
+			;隷属開始
+			IF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		;二回目以降
+		ELSE
+			;陥落開始
+			IF MARK:陥落刻印
+				;PRINTFORMW 
+			;隷属開始
+			ELSEIF MARK:隷属刻印
+				;PRINTFORMW 
+			;それ以外
+			ELSE
+				;PRINTFORMW 
+			ENDIF
+		ENDIF
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
+
+;=================================================
+;   sub KOJO_PALAMCHG_K542
+;=================================================
+;   キャラ口上:各種PALAM変動時
+;-------------------------------------------------
+; Input:
+;  ARG					対象PALAM
+;-------------------------------------------------
+@KOJO_PALAMCHG_K542(ARG)
+
+;-- CHK:対象PALAM
+SELECTCASE ARG
+	;-------------------------------------------------
+	;xxx,刻印取得(反発刻印Lv3)
+	;-------------------------------------------------
+	CASE [[口上:刻印取得_反発刻印最大]]
+		;陥落開始
+		IF MARK:陥落刻印
+			;PRINTFORMW 
+		;隷属開始
+		ELSEIF MARK:隷属刻印
+			;PRINTFORMW 
+		;それ以外
+		ELSE
+			;PRINTFORMW 
+		ENDIF
+
+	;-------------------------------------------------
+	;xxx,素質取得(服従)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_服従]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(恋慕)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_恋慕]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(淫乱)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_淫乱]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(キス魔)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_キス魔]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(セックス狂)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_セックス狂]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(自慰狂い)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_自慰狂い]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;xxx,素質取得(尻穴狂い)
+	;-------------------------------------------------
+	CASE [[口上:素質取得_尻穴狂い]]
+		;PRINTFORMW 
+
+	;-------------------------------------------------
+	;※ 該当無し
+	;-------------------------------------------------
+	CASEELSE
+		RETURN
+ENDSELECT
+RETURN
