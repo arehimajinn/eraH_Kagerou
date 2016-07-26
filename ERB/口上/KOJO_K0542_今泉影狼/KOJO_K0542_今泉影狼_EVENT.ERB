@@ -886,7 +886,7 @@ VARSET MEMBER
 LOCAL = 0
 ;自分より労役評価が低い奴隷がいるか検索
 FOR NEWBIE, 0, CHARANUM
-	IF CFLAG:NEWBIE:労役評価 <= CFLAG:労役評価 && NEWBIE != TARGET && NEWBIE != MASTER && CSTR:NEWBEE:衣装名_アクセサリー != "派遣メイド証"
+	IF CFLAG:NEWBIE:労役評価 <= CFLAG:労役評価 && NEWBIE != TARGET && NEWBIE != MASTER && CSTR:NEWBIE:衣装名_アクセサリー != "派遣メイド証"
 		;自分と相手の差が100以上であるか
 		IF CFLAG:労役評価 - CFLAG:MEMBER:労役評価 >= 100
 			MEMBER:LOCAL = NEWBIE
